@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author: wangpeng
@@ -41,16 +43,41 @@ public class ToutiaoAppPipeline extends FilePersistentBase implements Pipeline {
             String content = jsonObject.getString("content");
             if(StringUtils.isNotEmpty(content) && content.contains("广告")){
                 JSONObject adJsonObject = JSON.parseObject(content);
-                String lable = adJsonObject.getString("label");
-                if("广告".equals(lable)){
-                    //record data
-                    try {
-                        FileUtils.writeByteArrayToFile(new File(filePath+File.separator+System.currentTimeMillis()+".json"),content.getBytes());
-                    } catch (IOException e) {
-                        LOGGER.error(e.getMessage(),e);
+                String label = adJsonObject.getString("label");
+                if("广告".equals(label)){
+                    String url = adJsonObject.getString("url");
+                    if (url.contains("haohuo")) {
+                        System.out.println("广告的链接---------->" + url);
+                        System.out.println("物品的id---------->" + getParamByUrl(url,"id"));
                     }
+//                    //record data
+//                    try {
+//                        FileUtils.writeByteArrayToFile(new File(filePath+File.separator+System.currentTimeMillis()+".json"),content.getBytes());
+//                    } catch (IOException e) {
+//                        LOGGER.error(e.getMessage(),e);
+//                    }
                 }
             }
+        }
+    }
+
+
+    /**
+     * 获取指定url中的某个参数
+     * @param url
+     * @param name
+     * @return
+     */
+    public static String getParamByUrl(String url, String name) {
+        url += "&";
+        String pattern = "(\\?|&){1}#{0,1}" + name + "=[a-zA-Z0-9]*(&{1})";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(url);
+        if (m.find( )) {
+            System.out.println(m.group(0));
+            return m.group(0).split("=")[1].replace("&", "");
+        } else {
+            return null;
         }
     }
 

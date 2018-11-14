@@ -27,6 +27,6 @@ public class TouTiaoApiPageProcessor implements PageProcessor {
     public static void main(String[] args) {
         Spider.create(new TouTiaoApiPageProcessor())
             .addUrl(FIRST_URL)
-            .run();;
+            .run();
     }
 }
