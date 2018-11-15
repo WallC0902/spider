@@ -7,7 +7,6 @@ import com.spider.core.webmagic.ResultItems;
 import com.spider.core.webmagic.Task;
 import com.spider.core.webmagic.utils.FilePersistentBase;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +35,9 @@ public class HaohuoApiPipeline  extends FilePersistentBase implements Pipeline {
         try {
             FileUtils.writeByteArrayToFile(new File(filePath + File.separator+System.currentTimeMillis()+".json"),
                     jsonObject.toJSONString().getBytes());
+
+
+
             System.out.println("商品名称:->" + jsonObject.get("name"));
             System.out.println("销量:->" + jsonObject.get("sell_num"));
             System.out.println("店铺名:->" + jsonObject.get("shop_name"));

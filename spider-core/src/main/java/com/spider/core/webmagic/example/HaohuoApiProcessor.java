@@ -6,7 +6,6 @@ import com.spider.core.webmagic.Page;
 import com.spider.core.webmagic.Site;
 import com.spider.core.webmagic.Spider;
 import com.spider.core.webmagic.pipeline.HaohuoApiPipeline;
-import com.spider.core.webmagic.pipeline.ToutiaoAppPipeline;
 import com.spider.core.webmagic.processor.PageProcessor;
 
 /**
